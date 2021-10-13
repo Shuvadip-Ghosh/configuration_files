@@ -3,7 +3,7 @@ call plug#begin()
  " Plug 'dense-analysis/ale' for line correction
   "Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' } "to see files ot folders in the same folder
   "Plug 'vim-scripts/AutoComplPop' "this is for autocompletion
-  Plug 'davidhalter/jedi-vim' "auto completion specifically for python
+  "Plug 'davidhalter/jedi-vim' "auto completion specifically for python
   Plug 'tpope/vim-sensible'
   Plug 'itchyny/lightline.vim'
   Plug 'joshdick/onedark.vim'
@@ -27,6 +27,9 @@ set laststatus=2
 " enable 256 colors
 set t_Co=256
 set t_ut=
+
+"so that vim dosent make sound when there is an error
+set visualbell
 
 " turn on line numbering
 set number
