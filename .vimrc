@@ -3,7 +3,7 @@ call plug#begin()
  " Plug 'dense-analysis/ale' for line correction
   "Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' } "to see files ot folders in the same folder
   "Plug 'vim-scripts/AutoComplPop' "this is for autocompletion
-  "Plug 'davidhalter/jedi-vim' "auto completion specifically for python
+  Plug 'davidhalter/jedi-vim' "auto completion specifically for python
   Plug 'tpope/vim-sensible'
   Plug 'itchyny/lightline.vim'
   Plug 'joshdick/onedark.vim'
@@ -13,14 +13,22 @@ call plug#begin()
   Plug 'jistr/vim-nerdtree-tabs'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'jiangmiao/auto-pairs'
-  Plug 'dense-analysis/ale'
   Plug 'majutsushi/tagbar'
   Plug 'vim-scripts/indentpython.vim'
   Plug 'lepture/vim-jinja'
-  Plug 'pangloss/vim-javascript'
   Plug 'alvan/vim-closetag'
   Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'roxma/nvim-yarp'
 call plug#end()
+
+"maping ctrl b to :NERDTreeTogglr
+imap <C-b> <esc>:NERDTreeToggle<right><CR>
+map <C-b> :NERDTreeToggle<CR>
+imap <C-w> <esc>:w<cr>i
+map <C-w> <esc>:w<cr>i
+imap <C-m> <esc>:wq<cr>
+map <C-m> <esc>:wq<cr>
+
 " always show the status bar
 set laststatus=2
 
