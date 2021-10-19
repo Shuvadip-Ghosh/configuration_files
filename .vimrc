@@ -1,27 +1,32 @@
-" PLUGINS ________________________________________________________
+" plugins
 call plug#begin()
- " Plug 'dense-analysis/ale' for line correction
-  "Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' } "to see files ot folders in the same folder
-  "Plug 'vim-scripts/AutoComplPop' "this is for autocompletion
-  Plug 'davidhalter/jedi-vim' "auto completion specifically for python
-  Plug 'tpope/vim-sensible'
-  Plug 'itchyny/lightline.vim'
-  Plug 'joshdick/onedark.vim'
-  Plug 'ap/vim-buftabline'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'preservim/nerdtree'
-  Plug 'jistr/vim-nerdtree-tabs'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'majutsushi/tagbar'
-  Plug 'vim-scripts/indentpython.vim'
-  Plug 'lepture/vim-jinja'
-  Plug 'alvan/vim-closetag'
-  Plug 'maxmellon/vim-jsx-pretty'
-  Plug 'roxma/nvim-yarp'
+"Plug 'dense-analysis/ale' for line correction
+Plug 'tpope/vim-sensible'
+Plug 'itchyny/lightline.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'ap/vim-buftabline'
+Plug 'airblade/vim-gitgutter'
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jiangmiao/auto-pairs'
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'lepture/vim-jinja'
+Plug 'alvan/vim-closetag'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'davidhalter/jedi-vim'
+"Plug 'vim-scripts/AutoComplPop' "this is for autocompletion
 call plug#end()
 
-"maping ctrl b to :NERDTreeTogglr
+filetype plugin indent on
+syntax on
+
+let g:jedi#completions_enabled = 1
+let g:jedi#auto_initialization = 1
+"all key mappings
 imap <C-b> <esc>:NERDTreeToggle<right><CR>
 map <C-b> :NERDTreeToggle<CR> i
 imap <C-w> <esc>:w<cr>i
@@ -30,59 +35,47 @@ imap <C-n> <esc>:wq <CR>
 map <C-n> :wq <CR>
 imap <c-z> <esc>u i
 map <C-z> u i
+imap <C-a> <esc> gg v G
+map <C-a> <esc> gg v G
+vmap <C-c> y
+map <C-v> :TagbarToggle<CR>
+imap <F9> <esc> :!python3 % <cr>
+map <F9> <esc> :!python3 % <cr>
 
 
-"jedivim configs
-let g:jedi#auto_initialization = 1
-
-
-" always show the status bar
-set laststatus=2
-
-" enable 256 colors
-set t_Co=256
-set t_ut=
-
-"so that vim dosent make sound when there is an error
-set visualbell
-
-" turn on line numbering
-set number
-
-" sane text files
-set fileformat=unix
-set encoding=utf-8
-set fileencoding=utf-8
-
-" sane editing
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set colorcolumn=80
-set expandtab
-set viminfo='25,\"50,n~/.viminfo
-autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
-" auto-pairs
-au FileType python let b:AutoPairs = AutoPairsDefine({"f'" : "'", "r'" : "'", "b'" : "'"})
-
-" word movement
 imap <Left> <Esc>bi
 nmap <Left> b
 imap <Right> <Esc><Right>wi
 nmap <Right> w
 
-" indent/unindent with tab/shift-tab
 nmap <Tab> >>
 nmap <S-tab> <<
 imap <S-Tab> <Esc><<i
-vmap <Tab> >gv
-vmap <S-Tab> <gv
 
-" mouse
+"my set commands
+set laststatus=2
+set t_Co=256
+set t_ut=
+set number
+set fileformat=unix
+set encoding=utf-8
+set fileencoding=utf-8
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set colorcolumn=80
+set expandtab
 set mouse=a
+set visualbell
+set splitbelow splitright
+set completeopt-=preview
+set viminfo='25,\"50,n~/.viminfo
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+" auto-pairs
+au FileType python let b:AutoPairs = AutoPairsDefine({"f'" : "'", "r'" : "'", "b'" : "'"})
+
 let g:is_mouse_enabled = 1
 noremap <silent> <Leader>m :call ToggleMouse()<CR>
 function ToggleMouse()
@@ -102,12 +95,10 @@ syntax on
 colorscheme onedark
 filetype on
 filetype plugin indent on
-
-" lightline
 set noshowmode
 let g:lightline = { 'colorscheme': 'onedark' }
 
-" code folding
+"code folding
 set foldmethod=indent
 set foldlevel=99
 
@@ -158,8 +149,6 @@ nmap <leader>x :bp<bar>bd#<CR>
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " file browser
-" file browser
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let NERDTreeMinimalUI = 1
 let g:nerdtree_open = 0
 map <leader>n :call NERDTreeToggle()<CR>
@@ -173,26 +162,12 @@ function NERDTreeToggle()
     endif
 endfunction
 
-
 function! StartUp()
     if 0 == argc()
         NERDTree
     end
 endfunction
 autocmd VimEnter * call StartUp()
-
-" ale
-map <C-e> <Plug>(ale_next_wrap)
-map <C-r> <Plug>(ale_previous_wrap)
-
-" tags
-map <leader>t :TagbarToggle<CR>
-
-" copy, cut and paste
-vmap <C-c> "+y
-vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
 
 " disable autoindent when pasting text
 " source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
@@ -204,6 +179,5 @@ function! XTermPasteBegin()
     set paste
     return ""
 endfunction
-
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
