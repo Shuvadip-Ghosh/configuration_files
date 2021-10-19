@@ -23,11 +23,18 @@ call plug#end()
 
 "maping ctrl b to :NERDTreeTogglr
 imap <C-b> <esc>:NERDTreeToggle<right><CR>
-map <C-b> :NERDTreeToggle<CR>
+map <C-b> :NERDTreeToggle<CR> i
 imap <C-w> <esc>:w<cr>i
-map <C-w> <esc>:w<cr>i
-imap <C-m> <esc>:wq<cr>
-map <C-m> <esc>:wq<cr>
+map <C-w> :w<cr>i
+imap <C-n> <esc>:wq <CR>
+map <C-n> :wq <CR>
+imap <c-z> <esc>u i
+map <C-z> u i
+
+
+"jedivim configs
+let g:jedi#auto_initialization = 1
+
 
 " always show the status bar
 set laststatus=2
@@ -62,10 +69,10 @@ autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 au FileType python let b:AutoPairs = AutoPairsDefine({"f'" : "'", "r'" : "'", "b'" : "'"})
 
 " word movement
-imap <S-Left> <Esc>bi
-nmap <S-Left> b
-imap <S-Right> <Esc><Right>wi
-nmap <S-Right> w
+imap <Left> <Esc>bi
+nmap <Left> b
+imap <Right> <Esc><Right>wi
+nmap <Right> w
 
 " indent/unindent with tab/shift-tab
 nmap <Tab> >>
@@ -151,6 +158,7 @@ nmap <leader>x :bp<bar>bd#<CR>
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " file browser
+" file browser
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let NERDTreeMinimalUI = 1
 let g:nerdtree_open = 0
@@ -164,6 +172,7 @@ function NERDTreeToggle()
         wincmd p
     endif
 endfunction
+
 
 function! StartUp()
     if 0 == argc()
@@ -195,5 +204,6 @@ function! XTermPasteBegin()
     set paste
     return ""
 endfunction
+
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
