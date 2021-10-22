@@ -2,8 +2,8 @@
 call plug#begin()
 "Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
-Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
@@ -18,7 +18,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'davidhalter/jedi-vim'
-"Plug 'vim-scripts/AutoComplPop' "this is for autocompletion
 call plug#end()
 
 filetype plugin indent on
@@ -27,30 +26,44 @@ syntax on
 let g:jedi#completions_enabled = 1
 let g:jedi#auto_initialization = 1
 "all key mappings
-imap <C-b> <esc>:NERDTreeToggle<right><CR>
-map <C-b> :NERDTreeToggle<CR> i
+imap <C-b> <esc>:NERDTreeToggle<right><CR> :wincmd l <CR>i
+map <C-b> :NERDTreeToggle<CR> :wincmd l <CR>i
 imap <C-w> <esc>:w<cr>i
 map <C-w> :w<cr>i
 imap <C-n> <esc>:wq <CR>
 map <C-n> :wq <CR>
 imap <c-z> <esc>u i
 map <C-z> u i
-imap <C-a> <esc> gg v G
-map <C-a> <esc> gg v G
-vmap <C-c> y
-map <C-v> :TagbarToggle<CR>
+map <C-m> :TagbarToggle<CR>
+imap <C-d> <esc>:call ToggleWrap()<CR>
+map <C-d> :call ToggleWrap()<CR>
+
 imap <F9> <esc> :!python3 % <cr>
 map <F9> <esc> :!python3 % <cr>
-
-
-imap <Left> <Esc>bi
-nmap <Left> b
-imap <Right> <Esc><Right>wi
-nmap <Right> w
 
 nmap <Tab> >>
 nmap <S-tab> <<
 imap <S-Tab> <Esc><<i
+
+" move through split windows
+nmap <leader><Up> :wincmd k<CR>
+nmap <leader><Down> :wincmd j<CR>
+nmap <leader><Left> :wincmd h<CR>
+nmap <leader><Right> :wincmd l<CR>
+
+" move through buffers
+nmap <leader>[ :bp!<CR>
+nmap <leader>] :bn!<CR>
+nmap <leader>x :bp<bar>bd#<CR>
+
+" color scheme
+syntax on
+filetype on
+filetype plugin indent on
+set noshowmode
+let g:lightline = { 'colorscheme': 'onedark' }
+set background=dark
+colorscheme PaperColor
 
 "my set commands
 set laststatus=2
@@ -90,21 +103,9 @@ function ToggleMouse()
     endif
 endfunction
 
-" color scheme
-syntax on
-colorscheme onedark
-filetype on
-filetype plugin indent on
-set noshowmode
-let g:lightline = { 'colorscheme': 'onedark' }
-
-"code folding
-set foldmethod=indent
-set foldlevel=99
 
 " wrap toggle
 setlocal nowrap
-noremap <silent> <Leader>w :call ToggleWrap()<CR>
 function ToggleWrap()
     if &wrap
         echo "Wrap OFF"
@@ -134,16 +135,6 @@ function ToggleWrap()
     endif
 endfunction
 
-" move through split windows
-nmap <leader><Up> :wincmd k<CR>
-nmap <leader><Down> :wincmd j<CR>
-nmap <leader><Left> :wincmd h<CR>
-nmap <leader><Right> :wincmd l<CR>
-
-" move through buffers
-nmap <leader>[ :bp!<CR>
-nmap <leader>] :bn!<CR>
-nmap <leader>x :bp<bar>bd#<CR>
 
 " restore place in file from previous session
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -164,20 +155,9 @@ endfunction
 
 function! StartUp()
     if 0 == argc()
-        NERDTree
-    end
+        :NERDTreeToggle
+    else
+        :NERDTreeToggle
+    endif
 endfunction
 autocmd VimEnter * call StartUp()
-
-" disable autoindent when pasting text
-" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-
-function! XTermPasteBegin()
-    set pastetoggle=<Esc>[201~
-    set paste
-    return ""
-endfunction
-
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
