@@ -2,54 +2,46 @@
 call plug#begin()
 "Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline'
-Plug 'airblade/vim-gitgutter'
-Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'navarasu/onedark.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'lepture/vim-jinja'
-Plug 'alvan/vim-closetag'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'davidhalter/jedi-vim'
+Plug 'neoclide/coc.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'glepnir/dashboard-nvim'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'romgrk/barbar.nvim'
 call plug#end()
 
-filetype plugin indent on
-syntax on
 
-let g:jedi#completions_enabled = 1
-let g:jedi#auto_initialization = 1
 "all key mappings
 imap <C-b> <esc>:NERDTreeToggle<right><CR> :wincmd l <CR>i
 map <C-b> :NERDTreeToggle<CR> :wincmd l <CR>i
-imap <C-w> <esc>:w<cr>i
-map <C-w> :w<cr>i
-imap <C-n> <esc>:wq <CR>
-map <C-n> :wq <CR>
+imap <C-s> <esc>:w<cr>i
+map <C-s> :w<cr>i
+imap <C-q> <esc>:wq <CR>
+map <C-q> :wq <CR>
 imap <c-z> <esc>u i
 map <C-z> u i
-map <C-m> :TagbarToggle<CR>
 imap <C-d> <esc>:call ToggleWrap()<CR>
 map <C-d> :call ToggleWrap()<CR>
+imap <c-n> <esc> :!touch
+map <c-n> :!touch
+map <c-r> :NERDTreeRefreshRoot <cr>
+imap <c-r> :NERDTreeRefreshRoot <cr>
+autocmd FileType python imap <F9> <esc> :!python % <cr>
+autocmd FileType python map <F9> :!python % <cr>
 
-imap <F9> <esc> :!python3 % <cr>
-map <F9> <esc> :!python3 % <cr>
-
-nmap <Tab> >>
-nmap <S-tab> <<
-imap <S-Tab> <Esc><<i
-
+vmap <Tab> >>
+vmap <S-tab> <<
+nmap <Tab> :bp <cr>
 " move through split windows
-nmap <leader><Up> :wincmd k<CR>
-nmap <leader><Down> :wincmd j<CR>
-nmap <leader><Left> :wincmd h<CR>
-nmap <leader><Right> :wincmd l<CR>
+nmap <C-Up> :wincmd k<CR>
+nmap <C-Down> :wincmd j<CR>
+nmap <C-Left> :wincmd h<CR>
+nmap <C-Right> :wincmd l<CR>
 
 " move through buffers
 nmap <leader>[ :bp!<CR>
@@ -60,10 +52,22 @@ nmap <leader>x :bp<bar>bd#<CR>
 syntax on
 filetype on
 filetype plugin indent on
-set noshowmode
-let g:lightline = { 'colorscheme': 'onedark' }
-set background=dark
-colorscheme PaperColor
+
+let g:dashboard_default_executive ='telescope'
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+nnoremap <silent> <Leader>fh :DashboardFindHistory<CR>
+nnoremap <silent> <Leader>ff :DashboardFindFile<CR>
+nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
+nnoremap <silent> <Leader>fa :DashboardFindWord<CR>
+nnoremap <silent> <Leader>fb :DashboardJumpMark<CR>
+nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
+
+
+
+let g:onedark_style = 'cool'
+colorscheme onedark
+
 
 "my set commands
 set laststatus=2
@@ -155,9 +159,12 @@ endfunction
 
 function! StartUp()
     if 0 == argc()
-        :NERDTreeToggle
+        ":NERDTreeToggle
+        :vertical resize 23
     else
-        :NERDTreeToggle
+        ":NERDTreeToggle
+        :vertical resize 23
+        :wincmd l
     endif
 endfunction
 autocmd VimEnter * call StartUp()
