@@ -1,6 +1,5 @@
 " plugins
 call plug#begin()
-"Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
 Plug 'navarasu/onedark.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
