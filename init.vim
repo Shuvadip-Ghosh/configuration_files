@@ -1,9 +1,10 @@
-" plugins
+ plugins
 call plug#begin()
 "Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
-Plug 'navarasu/onedark.nvim'
+" Plug 'navarasu/onedark.nvim'
+Plug 'shaunsingh/nord.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'jiangmiao/auto-pairs'
@@ -26,9 +27,9 @@ imap jk <esc>
 nmap <M-h>  <esc>0 h
 imap <M-h>  <esc>0 h i
 nmap <M-e>  <esc>$
-imap <M-e>  <esc>$
+imap <M-e>  <esc>$ 
 
-imap <c-a> <esc> gg _ v G $
+imap <c-a> <esc> gg _ v G $ 
 nmap <c-a> gg _ v G $
 
 imap <C-b> <esc>:NERDTreeToggle<right><CR> :wincmd l <CR>i
@@ -41,23 +42,23 @@ imap <C-q> <esc>:wq <CR>
 map <C-q> :wq <CR>
 
 imap <c-z> <esc>u i
-map <C-z> u
+map <C-z> u 
 
 imap <M-z> <esc>:call ToggleWrap()<CR>
 map <M-z> :call ToggleWrap()<CR>
 
-imap <c-n> <esc> :!touch
-nmap <c-n> :!touch
+imap <c-n> <esc> :!touch 
+nmap <c-n> :!touch 
 
 map <c-R> :NERDTreeRefreshRoot <cr>
 
-vmap <M-h> gcc <esc>
-map <M-h> gcc <esc>
-imap <M-h> gcc <esc> i
+vmap <M-f> gcc <esc>
+map <M-f> gcc <esc>
+imap <M-f> <esc> gcc <esc> i
 
-vmap <M-g> gc <esc>
-map <M-g> gc <esc>
-imap <M-g> gc <esc> i
+vmap <M-d> gc <esc> 
+map <M-d> gc <esc> 
+imap <M-d> <esc> gc <esc> i
 
 imap <C-d> <esc> yy p i
 nmap <C-d> <esc> yy p
@@ -98,13 +99,16 @@ map <expr> P Paste('P')
 
 
 "Themes Config
-let g:onedark_style = 'cool'
-colorscheme onedark
+"let g:onedark_style = 'cool'
+"colorscheme onedark
+colorscheme nord
+"theme = 'onedark'
+
 " options = {theme = 'material'}
 lua << EOF
 require('lualine').setup {
   options = {
-      theme = 'onedark',
+      theme = 'nord'
   }
 }
 EOF
@@ -196,7 +200,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 
 "Auto save lugin
-let g:auto_save = 1
+let g:auto_save = 1 
 let g:auto_save_events = ["InsertLeave", "TextChanged","TextChangedI"]
 
 "start up config
