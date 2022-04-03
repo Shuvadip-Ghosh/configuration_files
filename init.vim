@@ -1,4 +1,4 @@
- plugins
+" plugins
 call plug#begin()
 "Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
@@ -19,6 +19,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug '907th/vim-auto-save'
 Plug 'romgrk/barbar.nvim'
 Plug 'preservim/nerdtree'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 
@@ -28,54 +29,57 @@ nmap <M-h>  <esc>0 h
 imap <M-h>  <esc>0 h i
 nmap <M-e>  <esc>$
 imap <M-e>  <esc>$ 
-
+"select all
 imap <c-a> <esc> gg _ v G $ 
 nmap <c-a> gg _ v G $
-
+"NERDTreeToggle
 imap <C-b> <esc>:NERDTreeToggle<right><CR> :wincmd l <CR>i
 map <C-b> :NERDTreeToggle<CR> :wincmd l <CR>
-
+"save
 imap <C-s> <esc>:w<cr>li
 map <C-s> :w<cr>i
-
+"save and quit
 imap <C-q> <esc>:wq <CR>
 map <C-q> :wq <CR>
 
+" only quit
+map <M-q> :q! <CR>
+imap <M-q> :q! <CR>
+
+"undo
 imap <c-z> <esc>u i
 map <C-z> u 
-
+"word wrap
 imap <M-z> <esc>:call ToggleWrap()<CR>
 map <M-z> :call ToggleWrap()<CR>
-
+"create new file
 imap <c-n> <esc> :!touch 
 nmap <c-n> :!touch 
-
-map <c-R> :NERDTreeRefreshRoot <cr>
-
+"comment
 vmap <M-f> gcc <esc>
 map <M-f> gcc <esc>
 imap <M-f> <esc> gcc <esc> i
-
+"uncomment
 vmap <M-d> gc <esc> 
 map <M-d> gc <esc> 
 imap <M-d> <esc> gc <esc> i
-
+"copy to next line
 imap <C-d> <esc> yy p i
 nmap <C-d> <esc> yy p
-
+"NERDTreeRefreshRoot
 imap <M-r> <esc> :NERDTreeRefreshRoot <cr>i
 nmap <M-r> <esc> :NERDTreeRefreshRoot <cr>
-
+"directly open vimrc
 nmap <M-l> :vsplit $MYVIMRC<cr>
-
+"run Python file
 autocmd FileType python imap <F9> <esc> :!python % <cr>
 autocmd FileType python map <F9> :!python % <cr>
-
-vmap <tab> >>
-vmap <S-tab> <<
+"code shifting
+vmap <tab> >
+vmap <S-tab> <
 vmap < <gv
 vmap > >gv
-
+" move through buffers
 nmap <Tab> :bp <cr>
 nmap <C-j> :wincmd j<CR>
 nmap <C-k> :wincmd k<CR>
@@ -198,7 +202,29 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
  " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-
+" NERDTree Git Plugin
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+" startify
+let g:startify_enable_special = 0
+let g:startify_custom_header = [  
+  \'  _________.__                             .___.__           ________.__                 .__     ',
+  \' /   _____/|  |__  __ _____  _______     __| _/|__|_____    /  _____/|  |__   ____  _____|  |__  ',
+  \' \_____  \ |  |  \|  |  \  \/ /\__  \   / __ | |  \____ \  /   \  ___|  |  \ /  _ \/  ___/  |  \ ',
+  \' /        \|   Y  \  |  /\   /  / __ \_/ /_/ | |  |  |_> > \    \_\  \   Y  (  <_> )___ \|   Y  \ ',
+  \'/_______  /|___|  /____/  \_/  (____  /\____ | |__|   __/   \______  /___|  /\____/____  >___|  /',
+  \'        \/      \/                  \/      \/    |__|             \/     \/           \/     \/ ',
+  \]
 "Auto save lugin
 let g:auto_save = 1 
 let g:auto_save_events = ["InsertLeave", "TextChanged","TextChangedI"]
@@ -206,12 +232,15 @@ let g:auto_save_events = ["InsertLeave", "TextChanged","TextChangedI"]
 "start up config
 function! StartUp()
     if 0 == argc()
-        :NERDTreeToggle
-        :vertical resize 23
+        :call ToggleWrap()
+        " :NERDTreeToggle
+        " :vertical resize 23
     else
-        :NERDTreeToggle
-        :vertical resize 23
-        :wincmd l
+        " :NERDTreeToggle
+        " :vertical resize 23
+        " :wincmd l
     endif
 endfunction
 autocmd VimEnter * call StartUp()
+
+
