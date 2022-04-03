@@ -1,16 +1,17 @@
 {
   "eslint.validate": ["typescript"],
-  "eslint.lintTask.options": [".", "--ext", ".ts"],
-  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "typescript.suggestionActions.enabled": false,
-  "suggest.enablePreselect": true,
+  "eslint.linttask.options": [".", "--ext", ".ts"],
+  "typescript.format.insertspaceafterfunctionkeywordforanonymousfunctions": false,
+  "typescript.format.insertspaceafteropeningandbeforeclosingnonemptybraces": true,
+  "typescript.suggestionactions.enabled": false,
+  "suggest.enablepreselect": true,
   "suggest.noselect": false,
-  "suggest.completionItemKindLabels": {"method": "  ","function": "  ","variable": "[]",
-   "field": "  ","typeParameter": "<>","constant": "  ","class": " פּ ","interface": " 蘒",
+
+  "suggest.completionitemkindlabels": {"method": "  ","function": "  ","variable": "[]",
+   "field": "  ","typeparameter": "<>","constant": "  ","class": " פּ ","interface": " 蘒",
    "struct": "  ","event": "  ","operator": "  ","module": "  ","property": "  ", 
    "enum": " 練","reference": "  ","keyword": "  ","file": "  ","folder": " ﱮ ","color": "  ",
    "unit": " 塞 ","snippet": "  ","text": "  ","constructor": "  ","value": "  ",
-   "enumMember": "  "
+   "enummember": "  "
   }
 }
