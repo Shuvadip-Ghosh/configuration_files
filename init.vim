@@ -1,6 +1,6 @@
-" plugins
+ plugins
 call plug#begin()
-"Plug 'dense-analysis/ale' for line correction
+Plug 'dense-analysis/ale' for line correction
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
 " Plug 'navarasu/onedark.nvim'
@@ -20,9 +20,12 @@ Plug '907th/vim-auto-save'
 Plug 'romgrk/barbar.nvim'
 Plug 'preservim/nerdtree'
 Plug 'mhinz/vim-startify'
+Plug 'dstein64/vim-startuptime'
+Plug 'Mofiqul/dracula.nvim'
 call plug#end()
 
-
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "all key mappings
 imap jk <esc>
 nmap <M-h>  <esc>0 h
@@ -80,7 +83,7 @@ vmap <S-tab> <
 vmap < <gv
 vmap > >gv
 " move through buffers
-nmap <Tab> :bp <cr>
+" nmap <Tab> :bp <cr>
 nmap <C-j> :wincmd j<CR>
 nmap <C-k> :wincmd k<CR>
 nmap <C-h> :wincmd h<CR>
@@ -104,8 +107,9 @@ map <expr> P Paste('P')
 
 "Themes Config
 "let g:onedark_style = 'cool'
-"colorscheme onedark
-colorscheme nord
+" colorscheme onedark
+" colorscheme nord
+colorscheme dracula
 "theme = 'onedark'
 
 " options = {theme = 'material'}
@@ -242,5 +246,3 @@ function! StartUp()
     endif
 endfunction
 autocmd VimEnter * call StartUp()
-
-
